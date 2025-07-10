@@ -4,7 +4,7 @@
 <!-- main-area -->
 <main>
     <!-- slider-area -->
-    <section class="slider-area slider-bg custom_funde_banner_grediant">
+    <section class="slider-area slider-bg custom_funde_banner_grediant yellow-bottom-border">
         <div class="slider-active mt-5">
             <div class="slider-item">
                 <div class="container">
@@ -26,13 +26,27 @@
                                 @endif ----}}
                                 @if (!empty($indexcontent->ytlink))
                                 @php
+                                // Convert normal YouTube link to embed link if needed
+                                $videoId = null;
 
-                                $autoplayUrl = Str::contains($indexcontent->ytlink, '?')
-                                ? $indexcontent->ytlink . '&autoplay=1&mute=1'
-                                : $indexcontent->ytlink . '?autoplay=1&mute=1';
+                                if (Str::contains($indexcontent->ytlink, 'watch?v=')) {
+                                $videoId = Str::after($indexcontent->ytlink, 'watch?v=');
+                                $videoId = Str::contains($videoId, '&') ? Str::before($videoId, '&') : $videoId;
+                                $embedUrl = "https://www.youtube.com/embed/$videoId?autoplay=1&mute=1&loop=1&playlist=$videoId";
+                                } elseif (Str::contains($indexcontent->ytlink, 'embed/')) {
+                                $videoId = Str::after($indexcontent->ytlink, 'embed/');
+                                $videoId = Str::contains($videoId, '?') ? Str::before($videoId, '?') : $videoId;
+                                $embedUrl = "https://www.youtube.com/embed/$videoId?autoplay=1&mute=1&loop=1&playlist=$videoId";
+                                } else {
+                                $embedUrl = $indexcontent->ytlink; // fallback if custom URL
+                                }
                                 @endphp
 
-                                <iframe class="video_bfc_content24" src="{{ $autoplayUrl }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen>
+                                <iframe class="video_bfc_content24"
+                                    src="{{ $embedUrl }}"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen>
                                 </iframe>
                                 @elseif (!empty($indexcontent->content))
                                 <img class="video_bfc_content24"
@@ -81,15 +95,15 @@
     <!-- slider-area-end -->
 
     <!-- Show-area -->
-    <section id="show-section" class="ucm-area ucm-bg">
+    <section id="show-section" class="ucm-area ucm-bg yellow-bottom-border">
         <div class="ucm-bg-shape"></div>
-       
+
         <div class="container">
             <div class="row align-items-end mb-50">
                 <div class="col-lg-6">
                     <div class="section-title text-center text-lg-left">
-                        <h2 class="title teal-text">{{ $firstsectionsheadings->heading }}</h2>
-                        <span class="teal-text">
+                        <h2 class="title orange-text">{{ $firstsectionsheadings->heading }}</h2>
+                        <span class="text-dark">
                             {!! $firstsectionsheadings->subheading !!}
                         </span>
                     </div>
@@ -141,7 +155,7 @@
     <!--Show-area-end -->
 
     <!-- Watch More Area -->
-    <section id="" class="ucm-area ucm-bg">
+    <section id="" class="ucm-area ucm-bg yellow-bottom-border" >
         <div class="ucm-bg-shape second-sectionfunde-gradient"></div>
         <div class="container">
             <div class="row align-items-end mb-50">
@@ -171,8 +185,8 @@
                 </div>
             </div> -->
         </div>
-         <div class="container">
-           
+        <div class="container">
+
             <div class="tab-content" id="myTabContent">
 
                 <div class="tab-pane fade show active" id="tvShow" role="tabpanel" aria-labelledby="tvShow-tab">
@@ -219,13 +233,13 @@
 
     <!-- Show PlayList Area -->
     @foreach($assignshowtypes as $index => $showtype)
-    <section class="ucm-area ucm-bg">
+    <section class="ucm-area ucm-bg yellow-bottom-border">
         <div class="ucm-bg-shape {{ $index % 2 === 0 ? '' : 'second-sectionfunde-gradient' }}"></div>
         <div class="container">
             <div class="row align-items-end mb-50">
                 <div class="col-lg-6">
                     <div class="section-title text-center text-lg-left">
-                        <h2 class="title teal-text">{{ $showtype->title }}</h2>
+                        <h2 class="title orange-text">{{ $showtype->title }}</h2>
                         <span class="teal-text">{{ $showtype->subtitle }}</span>
                     </div>
                 </div>
