@@ -1,0 +1,151 @@
+$(document).ready(function() {
+    // Add event listener for form submission
+    $('#profileForm').on('submit', function(e) {
+        var formAction = $(this);
+        var btnAction = $('#formBtn');
+        var spinAction = $('#formSpin');
+        e.preventDefault();
+        var data = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: $(formAction).attr('action'),
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $(btnAction).attr("disabled", true);
+                $(spinAction).show();
+            },
+            success: function(response) {
+                // console.log(response);
+                var response = JSON.parse(response);
+                $(btnAction).removeAttr("disabled");
+                $(spinAction).hide();
+                if (response[0].res == 'success') {
+                    toastr.success(response[0].msg); // Using toastr for success message
+                    if (response[0].redirect) {
+                        window.setTimeout(function() {
+                            window.location.href = response[0].redirect;
+                        }, 1000);
+                    }
+                } else if (response[0].res == 'error') {
+                    toastr.error(response[0].msg); // Using toastr for error message
+
+                }
+            },
+
+            error: function(xhr) {
+                var errorMessage = "Error occurred while processing your request";
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    errorMessage = xhr.responseJSON.errors[Object.keys(xhr.responseJSON.errors)[0]][0];
+                }
+                toastr.error(errorMessage);
+            }
+        });
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jquery.vectormap map -->
+    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js') }}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- Buttons examples -->
+    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    
+
+    <script src="{{ asset('assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- Datatable init js -->
+<script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+
+
+
+
+
+
+
+  <!-- App favicon -->
+  <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{ asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css" integrity="sha512-Qg72y9f1a3aVc1FVnjq5YURLOOG8fDKQjMnhxYaZgBz4nIVjpVOBUtuMMMqkZPS1FlVrzzEBXq2sM6Qp1zen/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Responsive datatable examples -->
+
+<link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- jquery.vectormap css -->
+<link href="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
+
+
+<!-- Responsive datatable examples -->
+<link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+<!--TimePicker-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.1/jquery.timepicker.min.css" integrity="sha512-WlaNl0+Upj44uL9cq9cgIWSobsjEOD1H7GK1Ny1gmwl43sO0QAUxVpvX2x+5iQz/C60J3+bM7V07aC/CNWt/Yw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+//website
+<!-- <script>
+    $('form').parsley();
+    $('#email').keypress(function(e) {
+        if (this.value.length === 0 && e.which === 32) e.preventDefault();
+    });
+    $('#username').keypress(function(e) {
+        if (this.value.length === 0 && e.which === 32) e.preventDefault();
+    });
+    $('#message').keypress(function(e) {
+        if (this.value.length === 0 && e.which === 32) e.preventDefault();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var video = document.getElementById('myVideo');
+
+
+        document.addEventListener('mousemove', function(event) {
+            video.muted = false;
+            video.play();
+        });
+
+        // Autoplay the video muted initially
+        video.muted = true;
+        video.play();
+    });
+</script> -->

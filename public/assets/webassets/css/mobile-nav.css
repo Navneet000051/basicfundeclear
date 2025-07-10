@@ -1,0 +1,217 @@
+:root {
+    --color-black: hsl(0, 0%, 10%);
+    --color-white: #01526A;
+    --color-darken: hsl(0, 0%, 20%);
+
+    --color-teal-100: hsl(160, 85%, 87%);
+    --color-teal-200: hsl(162, 78%, 77%);
+    --color-teal-300: hsl(162, 72%, 65%);
+    --color-teal-400: hsl(162, 68%, 54%);
+    --color-teal-500: hsl(162, 73%, 46%);
+    --color-teal-600: hsl(162, 82%, 40%);
+    --color-teal-700: hsl(162, 87%, 35%);
+    --color-teal-800: hsl(162, 88%, 30%);
+
+    --shadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 -4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    list-style-type: none;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.is-active {
+    color: #E43C1F !important;
+}
+.active {
+    color: #E43C1F !important;
+}
+
+.mobile-bfccontent-menu-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mobile-bfccontent-menu-list a{
+    color: #fff;
+}
+
+.header_mobile_nav {
+    display: none;
+}
+
+.bfc-content-menu-link {
+    color: #ffff;
+}
+
+.bfcyoutube_shorts_icon {
+    color: #ffff !important;
+}
+
+.bfc-content-menu-link:hover {
+    color: #E43C1F;
+}
+
+.bfcmenu-item {
+    padding: 10px;
+}
+
+.mobile_active_iconbfc a {
+    color: #ffff !important;
+}
+
+.bfcbg-active {
+    background-color: #E43C1F !important;
+    border-radius: 12px;
+}
+
+
+.mobile_bfccontent_menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: grid;
+    align-content: center;
+    width: 100%;
+    padding: 0 1rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    background: var(--color-white);
+    box-shadow: var(--shadow-medium);
+    z-index: 9;
+    /* opacity: 0.9; */
+
+    &-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    &-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none;
+        color: var(--color-black);
+
+        &.is-active {
+            position: relative;
+            color: var(--color-teal-800);
+            transition: all 0.35s ease;
+        }
+    }
+
+    &-icon {
+        font-size: 1.35rem;
+        line-height: 1;
+        color: inherit;
+    }
+
+    &-name {
+        display: none;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.25;
+        visibility: hidden;
+        text-transform: capitalize;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .header_mobile_nav {
+        display: block;
+    }
+
+    .mobile-nav-toggler {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    .mobile_bfccontent_menu {
+        &-name {
+            display: block;
+            visibility: visible;
+        }
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .mobile_bfccontent_menu {
+        &-list {
+            justify-content: center;
+            column-gap: 3rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .header_mobile_nav {
+        background: var(--color-white);
+        box-shadow: var(--shadow-medium);
+        transition: all 0.35s ease-in-out;
+    }
+
+    .mobile_bfccontent_menu {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        background: none;
+        box-shadow: none;
+
+        &-link {
+            &.is-active::before {
+                position: absolute;
+                content: "";
+                left: 0;
+                bottom: 0;
+                width: 2rem;
+                height: 2px;
+                border: none;
+                outline: none;
+                background: var(--color-teal-800);
+            }
+
+            &:hover {
+                color: var(--color-teal-800);
+                transition: all 0.35s ease;
+            }
+        }
+
+        &-icon {
+            display: none;
+            visibility: hidden;
+        }
+
+        &-name {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 0.2rem;
+        }
+    }
+}
+
+.About_header_bfc_content {
+    background: #01526a;
+    padding: 10px 0px !important;
+}
