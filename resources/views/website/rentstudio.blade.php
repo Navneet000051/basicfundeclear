@@ -103,6 +103,7 @@
     <section class="newsletter-area newsletter-bg">
         <div class="container">
             <div class="newsletter-inner-wrap">
+                <h1 class="text-dark">Rent Enquiry</h1>
                  <div id="enqmsg" style="background:#dff1d8;height:40px;width:max-content;display:none;padding:0 10px;">
                     <span style="color:#3c763d;line-height:40px;font-size:15px;"> &nbsp;&nbsp; Thankyou For Enquiry </span>
                 </div>
